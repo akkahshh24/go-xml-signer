@@ -23,9 +23,14 @@ const (
 	DigestValueTag            = "DigestValue"
 	SignatureValueTag         = "SignatureValue"
 	KeyInfoTag                = "KeyInfo"
-	X509DataTag               = "X509Data"
-	X509CertificateTag        = "X509Certificate"
-	InclusiveNamespacesTag    = "InclusiveNamespaces"
+	// changed
+	KeyValueTag            = "KeyValue"
+	RSAKeyValueTag         = "RSAKeyValue"
+	ModulusTag             = "Modulus"
+	ExponentTag            = "Exponent"
+	X509DataTag            = "X509Data"
+	X509CertificateTag     = "X509Certificate"
+	InclusiveNamespacesTag = "InclusiveNamespaces"
 )
 
 const (
