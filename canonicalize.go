@@ -132,18 +132,19 @@ func (c *c14N10RecCanonicalizer) Algorithm() AlgorithmID {
 
 }
 
-func composeAttr(space, key string) string {
-	if space != "" {
-		return space + ":" + key
-	}
+// changed
+// func composeAttr(space, key string) string {
+// 	if space != "" {
+// 		return space + ":" + key
+// 	}
 
-	return key
-}
+// 	return key
+// }
 
-type c14nSpace struct {
-	a    etree.Attr
-	used bool
-}
+// type c14nSpace struct {
+// 	a    etree.Attr
+// 	used bool
+// }
 
 const nsSpace = "xmlns"
 
