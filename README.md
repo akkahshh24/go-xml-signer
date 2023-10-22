@@ -1,4 +1,4 @@
-# go-xml-sig
+# go-xml-signer
 
 XML Digital Signatures (includes the Modulus and Exponent field in KeyInfo tag) implemented in pure Go.
 
