@@ -12,8 +12,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/akkahshh24/go-xml-signer/etreeutils"
 	"github.com/beevik/etree"
-	"github.com/russellhaering/goxmldsig/etreeutils"
 )
 
 type SigningContext struct {

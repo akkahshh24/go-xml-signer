@@ -3,8 +3,8 @@ package dsig
 import (
 	"sort"
 
+	"github.com/akkahshh24/go-xml-signer/etreeutils"
 	"github.com/beevik/etree"
-	"github.com/russellhaering/goxmldsig/etreeutils"
 )
 
 // Canonicalizer is an implementation of a canonicalization algorithm.
