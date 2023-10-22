@@ -1,9 +1,6 @@
-# goxmldsig
+# go-xml-sig
 
-![Build Status](https://github.com/russellhaering/goxmldsig/actions/workflows/test.yml/badge.svg?branch=main)
-[![GoDoc](https://godoc.org/github.com/russellhaering/goxmldsig?status.svg)](https://godoc.org/github.com/russellhaering/goxmldsig)
-
-XML Digital Signatures implemented in pure Go.
+XML Digital Signatures (includes the Modulus and Exponent field in KeyInfo tag) implemented in pure Go.
 
 ## Installation
 
