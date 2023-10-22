@@ -300,13 +300,13 @@ func (ctx *SigningContext) ConstructSignature(el *etree.Element, enveloped bool)
 		// Parse the certificate
 		cert, err := x509.ParseCertificate(block.Bytes)
 		if err != nil {
-			return nil, fmt.Errorf("failed to parse certificate: %v\n", err)
+			return nil, fmt.Errorf("failed to parse certificate: %v", err)
 		}
 
 		// Check if the certificate contains an RSA public key
 		rsaPublicKey, ok := cert.PublicKey.(*rsa.PublicKey)
 		if !ok {
-			return nil, fmt.Errorf("Certificate does not contain an RSA public key")
+			return nil, fmt.Errorf("certificate does not contain an RSA public key")
 		}
 
 		modulus := ctx.createNamespacedElement(rsaKeyValue, ModulusTag)
