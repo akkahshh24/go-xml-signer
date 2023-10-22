@@ -6,15 +6,15 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"regexp"
 
 	"github.com/akkahshh24/go-xml-signer/etreeutils"
 	"github.com/akkahshh24/go-xml-signer/types"
 	"github.com/beevik/etree"
 )
 
-var uriRegexp = regexp.MustCompile(`^#[a-zA-Z_][\\w.-]*$`)
-var whiteSpace = regexp.MustCompile(`\\s+`)
+// changed
+// var uriRegexp = regexp.MustCompile(`^#[a-zA-Z_][\\w.-]*$`)
+// var whiteSpace = regexp.MustCompile(`\\s+`)
 
 var (
 	// ErrMissingSignature indicates that no enveloped signature was found referencing
@@ -37,19 +37,19 @@ func NewDefaultValidationContext(certificateStore X509CertificateStore) *Validat
 }
 
 // TODO(russell_h): More flexible namespace support. This might barely work.
-func inNamespace(el *etree.Element, ns string) bool {
-	for _, attr := range el.Attr {
-		if attr.Value == ns {
-			if attr.Space == "" && attr.Key == "xmlns" {
-				return el.Space == ""
-			} else if attr.Space == "xmlns" {
-				return el.Space == attr.Key
-			}
-		}
-	}
+// func inNamespace(el *etree.Element, ns string) bool {
+// 	for _, attr := range el.Attr {
+// 		if attr.Value == ns {
+// 			if attr.Space == "" && attr.Key == "xmlns" {
+// 				return el.Space == ""
+// 			} else if attr.Space == "xmlns" {
+// 				return el.Space == attr.Key
+// 			}
+// 		}
+// 	}
 
-	return false
-}
+// 	return false
+// }
 
 func childPath(space, tag string) string {
 	if space == "" {
