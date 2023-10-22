@@ -9,8 +9,10 @@ import (
 	_ "crypto/sha256"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/pem"
 	"errors"
 	"fmt"
+	"math/big"
 
 	"github.com/akkahshh24/go-xml-signer/etreeutils"
 	"github.com/beevik/etree"
@@ -280,10 +282,40 @@ func (ctx *SigningContext) ConstructSignature(el *etree.Element, enveloped bool)
 	signatureValue.SetText(base64.StdEncoding.EncodeToString(rawSignature))
 
 	keyInfo := ctx.createNamespacedElement(sig, KeyInfoTag)
-	x509Data := ctx.createNamespacedElement(keyInfo, X509DataTag)
+	// x509Data := ctx.createNamespacedElement(keyInfo, X509DataTag)
+	// changed
+	keyValue := ctx.createNamespacedElement(keyInfo, KeyValueTag)
+	rsaKeyValue := ctx.createNamespacedElement(keyValue, RSAKeyValueTag)
+
 	for _, cert := range certs {
-		x509Certificate := ctx.createNamespacedElement(x509Data, X509CertificateTag)
-		x509Certificate.SetText(base64.StdEncoding.EncodeToString(cert))
+		// x509Certificate := ctx.createNamespacedElement(x509Data, X509CertificateTag)
+		// x509Certificate.SetText(base64.StdEncoding.EncodeToString(cert))
+		// changed
+		// Decode the PEM data
+		block, _ := pem.Decode(cert)
+		if block == nil {
+			return nil, fmt.Errorf("failed to decode PEM block")
+		}
+
+		// Parse the certificate
+		cert, err := x509.ParseCertificate(block.Bytes)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse certificate: %v\n", err)
+		}
+
+		// Check if the certificate contains an RSA public key
+		rsaPublicKey, ok := cert.PublicKey.(*rsa.PublicKey)
+		if !ok {
+			return nil, fmt.Errorf("Certificate does not contain an RSA public key")
+		}
+
+		modulus := ctx.createNamespacedElement(rsaKeyValue, ModulusTag)
+		modulusValue := new(big.Int).SetBytes(rsaPublicKey.N.Bytes())
+		modulus.SetText(base64.StdEncoding.EncodeToString(modulusValue.Bytes()))
+
+		exponent := ctx.createNamespacedElement(rsaKeyValue, ExponentTag)
+		exponentValue := big.NewInt(int64(rsaPublicKey.E))
+		exponent.SetText(base64.StdEncoding.EncodeToString(exponentValue.Bytes()))
 	}
 
 	return sig, nil
