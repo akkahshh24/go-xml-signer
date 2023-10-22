@@ -57,9 +57,28 @@ type SignatureValue struct {
 	Data    string   `xml:",chardata"`
 }
 
+// type KeyInfo struct {
+// 	XMLName  xml.Name `xml:"http://www.w3.org/2000/09/xmldsig# KeyInfo"`
+// 	X509Data X509Data `xml:"X509Data"`
+// }
+
+// changed
 type KeyInfo struct {
-	XMLName  xml.Name `xml:"http://www.w3.org/2000/09/xmldsig# KeyInfo"`
-	X509Data X509Data `xml:"X509Data"`
+	XMLName  xml.Name  `xml:"http://www.w3.org/2000/09/xmldsig# KeyInfo"`
+	KeyValue *KeyValue `xml:"KeyValue"`
+}
+
+// changed
+type KeyValue struct {
+	XMLName     xml.Name     `xml:"http://www.w3.org/2000/09/xmldsig# KeyValue"`
+	RSAKeyValue *RSAKeyValue `xml:"RSAKeyValue"`
+}
+
+// changed
+type RSAKeyValue struct {
+	XMLName  xml.Name `xml:"http://www.w3.org/2000/09/xmldsig# RSAKeyValue"`
+	Modulus  string   `xml:"Modulus"`
+	Exponent string   `xml:"Exponent"`
 }
 
 type X509Data struct {
